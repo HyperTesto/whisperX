@@ -55,12 +55,13 @@ def write_txt(transcript: Iterator[dict], file: TextIO):
 def write_vtt(transcript: Iterator[dict], file: TextIO):
     print("WEBVTT\n", file=file)
 
-    if "speaker" in segment:
-        speaker_str = f"[{segment['speaker']}]: "
-    else:
-        speaker_str = ""
-
     for segment in transcript:
+
+        if "speaker" in segment:
+            speaker_str = f"[{segment['speaker']}]: "
+        else:
+            speaker_str = ""
+
         print(
             f"{format_timestamp(segment['start'])} --> {format_timestamp(segment['end'])}\n"
             f"{speaker_str}{segment['text'].strip().replace('-->', '->')}\n",
