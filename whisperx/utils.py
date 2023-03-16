@@ -54,10 +54,16 @@ def write_txt(transcript: Iterator[dict], file: TextIO):
 
 def write_vtt(transcript: Iterator[dict], file: TextIO):
     print("WEBVTT\n", file=file)
+
+    if "speaker" in segment:
+            speaker_str = f"[{segment['speaker']}]: "
+        else:
+            speaker_str = ""
+
     for segment in transcript:
         print(
             f"{format_timestamp(segment['start'])} --> {format_timestamp(segment['end'])}\n"
-            f"{segment['text'].strip().replace('-->', '->')}\n",
+            f"{speaker_str}{segment['text'].strip().replace('-->', '->')}\n",
             file=file,
             flush=True,
         )
@@ -87,11 +93,17 @@ def write_srt(transcript: Iterator[dict], file: TextIO):
     """
     for i, segment in enumerate(transcript, start=1):
         # write srt lines
+
+        if "speaker" in segment:
+                speaker_str = f"[{segment['speaker']}]: "
+            else:
+                speaker_str = ""
+
         print(
             f"{i}\n"
             f"{format_timestamp(segment['start'], always_include_hours=True, decimal_marker=',')} --> "
             f"{format_timestamp(segment['end'], always_include_hours=True, decimal_marker=',')}\n"
-            f"{segment['text'].strip().replace('-->', '->')}\n",
+            f"{speaker_str}{segment['text'].strip().replace('-->', '->')}\n",
             file=file,
             flush=True,
         )
