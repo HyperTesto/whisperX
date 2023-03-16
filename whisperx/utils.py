@@ -56,9 +56,9 @@ def write_vtt(transcript: Iterator[dict], file: TextIO):
     print("WEBVTT\n", file=file)
 
     if "speaker" in segment:
-            speaker_str = f"[{segment['speaker']}]: "
-        else:
-            speaker_str = ""
+        speaker_str = f"[{segment['speaker']}]: "
+    else:
+        speaker_str = ""
 
     for segment in transcript:
         print(
@@ -97,9 +97,9 @@ def write_srt(transcript: Iterator[dict], file: TextIO):
         # write srt lines
 
         if "speaker" in segment:
-                speaker_str = f"[{segment['speaker']}]: "
-            else:
-                speaker_str = ""
+            speaker_str = f"[{segment['speaker']}]: "
+        else:
+            speaker_str = ""
 
         print(
             f"{i}\n"
