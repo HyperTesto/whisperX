@@ -73,6 +73,8 @@ def write_tsv(transcript: Iterator[dict], file: TextIO):
     for segment in transcript:
         print(segment['start'], file=file, end="\t")
         print(segment['end'], file=file, end="\t")
+        if "speaker" in segment:
+            print(segment['speaker'], file=file, end="\t")
         print(segment['text'].strip().replace("\t", " "), file=file, flush=True)
 
 
