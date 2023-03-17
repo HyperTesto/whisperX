@@ -3,6 +3,7 @@ import zlib
 from typing import Callable, TextIO, Iterator, Tuple
 import pandas as pd
 import numpy as np
+import json
 
 def exact_div(x, y):
     assert x % y == 0
@@ -46,6 +47,12 @@ def format_timestamp(seconds: float, always_include_hours: bool = False, decimal
     hours_marker = f"{hours:02d}:" if always_include_hours or hours > 0 else ""
     return f"{hours_marker}{minutes:02d}:{seconds:02d}{decimal_marker}{milliseconds:03d}"
 
+def write_json(transcript, file: TextIO):
+    print(
+        f"{json.dumps(transcript)}",
+        file=file,
+        flush=True,
+    )
 
 def write_txt(transcript: Iterator[dict], file: TextIO):
     for segment in transcript:

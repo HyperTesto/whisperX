@@ -713,6 +713,11 @@ def cli():
             result_aligned["segments"] = result_segments
             result_aligned["word_segments"] = word_segments
 
+        # save JSON
+        if output_type in ["json", "all"]:
+            with open(os.path.join(output_dir, audio_basename + ".json"), "w", encoding="utf-8") as json_file:
+                write_txt(result_aligned, file=json_file)
+
         # save TXT
         if output_type in ["txt", "all"]:
             with open(os.path.join(output_dir, audio_basename + ".txt"), "w", encoding="utf-8") as txt:
